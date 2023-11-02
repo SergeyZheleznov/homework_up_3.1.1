@@ -45,26 +45,57 @@ public:
 		std::cout << "Destructor called\n";
 	}
 
-	int add_element(int x)
+	void add_element(int x)
 	{
 		x = x;
+		int* arr_temp;
 
-		if ((count + 1) <= size)
+		if ((count + 1) <= size) // это случай, когда нам не нужно увеличивать массив, просто пишем значения в элементы массива
 		{
+			// если вызываем функцию добавления в массив элемента в первый раз, то кладём 
+			// значение элемента в самый первый элемент массива, то есть с индексом 0
+			// если вызываем функцию добавления в массив второй раз, то кладём в ячейку с индексом 1 и т.д
 			arr[count] = x;
 
+			// Распечатем тот массив, который получился в результате вызова метода add_element
 			std::cout << "Массив значений" << std::endl;
 			for (int i = 0; i < size; i++)
 			{
 				std::cout << arr[i] << std::endl;
 			}
-
-			count = count + 1;
+	
 		}
-		else
+		else // здесь у нас количество элементов уже больше, чем изначально заданный массив,
+			// поэтому нужно увеличить массив, чтобы положить туда новый элемент
 		{
-			throw std::runtime_error("Количество элементов, которое Вы ходите ввести, больше, чем количество мест в массиве. Вы не можете больше вводить элементы массива");
+			std::cout << "Количество элементов, которое Вы ходите ввести, больше, чем количество мест в массиве.Массив увеличен." << std::endl;
+			
+			// создаём временный массив arr_temp
+			int* arr_temp = new int[size + 1];
+			// передаём туда все значения из первичного массива
+			for (int i = 0; i < size; i++)
+			{
+				arr_temp[i] = arr[i];
+			}
+			// добавляем в последний элемент новое значение 
+			arr_temp[size] = x;
+
+			std::cout << "Временный массив значений" << std::endl;
+			for (int i = 0; i < (size + 1); i++)
+			{
+				std::cout << arr_temp[i] << std::endl;
+			}
+			size++;
+			delete[] arr;
+
+			arr = arr_temp;
+			std::cout << "Массив значений" << std::endl;
+			for (int i = 0; i < (size); i++)
+			{
+				std::cout << arr_temp[i] << std::endl;
+			}
 		}
+		count = count + 1;
 	}
 
 	int get_element_from_index(int y)
@@ -94,8 +125,9 @@ int main()
 		arr.add_element(14);
 		arr.add_element(15);
 		arr.add_element(19);
+		arr.add_element(21);
 
-		std::cout << arr.get_element_from_index(0) << std::endl;
+		std::cout << arr.get_element_from_index(10) << std::endl;
 		std::cout << arr.get_element_from_index(2) << std::endl;
 		std::cout << "Smart_array printed\n";
 	}
