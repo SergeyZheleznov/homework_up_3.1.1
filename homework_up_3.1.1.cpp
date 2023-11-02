@@ -48,32 +48,10 @@ public:
 	int add_element(int x)
 	{
 		x = x;
-		int* arr_temp;
 
 		if ((count + 1) <= size)
 		{
-			// создаём временный массив arr_temp 
-			arr_temp = new int[size];
-			// передаём туда все значения из первичного массива
-			for (int i = 0; i < size; i++)
-			{
-				arr_temp[i] = arr[i];
-			}
-
-			// если вызываем функцию добавления в массив элемента в первый раз, то кладём 
-			// значение элемента в самый первый элемент массива, то есть с индексом 0
-			arr_temp[count] = x;
-	
-
-			delete[] arr;
-			arr = new int[size];
-
-			for (int i = 0; i < size; i++)
-			{
-				arr[i] = arr_temp[i];
-			}
-			
-			delete[] arr_temp;
+			arr[count] = x;
 
 			std::cout << "Массив значений" << std::endl;
 			for (int i = 0; i < size; i++)
@@ -115,7 +93,7 @@ int main()
 		arr.add_element(155);
 		arr.add_element(14);
 		arr.add_element(15);
-		//arr.add_element(19);
+		arr.add_element(19);
 
 		std::cout << arr.get_element_from_index(0) << std::endl;
 		std::cout << arr.get_element_from_index(2) << std::endl;
