@@ -99,7 +99,7 @@ public:
 
 	int get_element_from_index(int y)
 	{
-		if (y >= 0 && y < size)
+		if (y >= 0 && y < count)
 		{
 			std::cout << "Вот значение элемента массива соответствующим индексом" << std::endl;
 			return arr[y];
